@@ -1,0 +1,89 @@
+{
+  "kind": "collectionType",
+  "collectionName": "clients",
+  "info": {
+    "singularName": "client",
+    "pluralName": "clients",
+    "displayName": "Jamaah",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "firtsname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "placedate": {
+      "type": "date"
+    },
+    "idcard": {
+      "type": "biginteger"
+    },
+    "address": {
+      "type": "richtext"
+    },
+    "city": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "biginteger"
+    },
+    "mobilephone": {
+      "type": "biginteger"
+    },
+    "email": {
+      "type": "email"
+    },
+    "heir": {
+      "type": "string"
+    },
+    "relationheir": {
+      "type": "enumeration",
+      "enum": [
+        "husband",
+        "wife",
+        "son",
+        "daughter"
+      ]
+    },
+    "listbank": {
+      "type": "enumeration",
+      "enum": [
+        "bni",
+        "bri",
+        "bca",
+        "bsi"
+      ]
+    },
+    "accountnumber": {
+      "type": "biginteger"
+    },
+    "nameaccountnumber": {
+      "type": "string"
+    },
+    "program": {
+      "type": "enumeration",
+      "enum": [
+        "umrah",
+        "hajiplus",
+        "umrahreguler",
+        "umrahplus"
+      ]
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "male",
+        "female"
+      ]
+    },
+    "postalcode": {
+      "type": "integer"
+    }
+  }
+}
