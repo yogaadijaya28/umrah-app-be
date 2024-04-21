@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tipes",
+  "info": {
+    "singularName": "tipe",
+    "pluralName": "tipes",
+    "displayName": "program",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tipeprogram": {
+      "type": "string"
+    }
+  }
+}

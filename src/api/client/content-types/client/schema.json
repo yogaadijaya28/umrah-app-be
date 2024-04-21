@@ -22,13 +22,11 @@
       "type": "date"
     },
     "idcard": {
-      "type": "biginteger"
+      "type": "biginteger",
+      "unique": true
     },
     "address": {
       "type": "richtext"
-    },
-    "city": {
-      "type": "string"
     },
     "phone": {
       "type": "biginteger"
@@ -66,15 +64,6 @@
     "nameaccountnumber": {
       "type": "string"
     },
-    "program": {
-      "type": "enumeration",
-      "enum": [
-        "umrah",
-        "hajiplus",
-        "umrahreguler",
-        "umrahplus"
-      ]
-    },
     "gender": {
       "type": "enumeration",
       "enum": [
@@ -82,8 +71,23 @@
         "female"
       ]
     },
-    "postalcode": {
-      "type": "integer"
+    "province": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "district": {
+      "type": "string"
+    },
+    "village": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string"
+    },
+    "tipeprogram": {
+      "type": "string"
     }
   }
 }

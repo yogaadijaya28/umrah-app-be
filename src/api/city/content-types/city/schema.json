@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "provinces",
+  "collectionName": "cities",
   "info": {
-    "singularName": "province",
-    "pluralName": "provinces",
-    "displayName": "province",
+    "singularName": "city",
+    "pluralName": "cities",
+    "displayName": "City",
     "description": ""
   },
   "options": {
@@ -15,12 +15,14 @@
     "name": {
       "type": "string"
     },
-    "inisial": {
-      "type": "string"
-    },
-    "province_id": {
+    "city_id": {
       "type": "integer",
       "unique": true
+    },
+    "province": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::province.province"
     }
   }
 }

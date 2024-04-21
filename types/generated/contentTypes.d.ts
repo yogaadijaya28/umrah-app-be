@@ -676,6 +676,35 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCityCity extends Schema.CollectionType {
+  collectionName: 'cities';
+  info: {
+    singularName: 'city';
+    pluralName: 'cities';
+    displayName: 'City';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    city_id: Attribute.Integer & Attribute.Unique;
+    province: Attribute.Relation<
+      'api::city.city',
+      'oneToOne',
+      'api::province.province'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiClientClient extends Schema.CollectionType {
   collectionName: 'clients';
   info: {
@@ -691,9 +720,8 @@ export interface ApiClientClient extends Schema.CollectionType {
     firtsname: Attribute.String;
     lastname: Attribute.String;
     placedate: Attribute.Date;
-    idcard: Attribute.BigInteger;
+    idcard: Attribute.BigInteger & Attribute.Unique;
     address: Attribute.RichText;
-    city: Attribute.String;
     phone: Attribute.BigInteger;
     mobilephone: Attribute.BigInteger;
     email: Attribute.Email;
@@ -702,11 +730,13 @@ export interface ApiClientClient extends Schema.CollectionType {
     listbank: Attribute.Enumeration<['bni', 'bri', 'bca', 'bsi']>;
     accountnumber: Attribute.BigInteger;
     nameaccountnumber: Attribute.String;
-    program: Attribute.Enumeration<
-      ['umrah', 'hajiplus', 'umrahreguler', 'umrahplus']
-    >;
     gender: Attribute.Enumeration<['male', 'female']>;
-    postalcode: Attribute.Integer;
+    province: Attribute.String;
+    city: Attribute.String;
+    district: Attribute.String;
+    village: Attribute.String;
+    zipcode: Attribute.String;
+    tipeprogram: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -731,14 +761,19 @@ export interface ApiDistrictDistrict extends Schema.CollectionType {
     singularName: 'district';
     pluralName: 'districts';
     displayName: 'district';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    district_id: Attribute.String;
-    regencies_id: Attribute.String;
     name: Attribute.String;
+    district_id: Attribute.Integer & Attribute.Unique;
+    city: Attribute.Relation<
+      'api::district.district',
+      'oneToOne',
+      'api::city.city'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -750,6 +785,42 @@ export interface ApiDistrictDistrict extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::district.district',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPostalcodePostalcode extends Schema.CollectionType {
+  collectionName: 'postalcodes';
+  info: {
+    singularName: 'postalcode';
+    pluralName: 'postalcodes';
+    displayName: 'postalcode';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    value: Attribute.String;
+    district: Attribute.Relation<
+      'api::postalcode.postalcode',
+      'oneToOne',
+      'api::district.district'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::postalcode.postalcode',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::postalcode.postalcode',
       'oneToOne',
       'admin::user'
     > &
@@ -763,88 +834,26 @@ export interface ApiProvinceProvince extends Schema.CollectionType {
     singularName: 'province';
     pluralName: 'provinces';
     displayName: 'province';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    provinces_id: Attribute.String;
-    name: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::province.province',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::province.province',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiRegencyRegency extends Schema.CollectionType {
-  collectionName: 'regencies';
-  info: {
-    singularName: 'regency';
-    pluralName: 'regencies';
-    displayName: 'regency';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    regencies_id: Attribute.String;
-    provinces_id: Attribute.String;
-    name: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::regency.regency',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::regency.regency',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiRegisterRegister extends Schema.CollectionType {
-  collectionName: 'registers';
-  info: {
-    singularName: 'register';
-    pluralName: 'registers';
-    displayName: 'register';
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    fullname: Attribute.String;
-    email: Attribute.Email;
+    name: Attribute.String;
+    inisial: Attribute.String;
+    province_id: Attribute.Integer & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::register.register',
+      'api::province.province',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::register.register',
+      'api::province.province',
       'oneToOne',
       'admin::user'
     > &
@@ -852,34 +861,25 @@ export interface ApiRegisterRegister extends Schema.CollectionType {
   };
 }
 
-export interface ApiVillageVillage extends Schema.CollectionType {
-  collectionName: 'villages';
+export interface ApiTipeTipe extends Schema.CollectionType {
+  collectionName: 'tipes';
   info: {
-    singularName: 'village';
-    pluralName: 'villages';
-    displayName: 'village';
+    singularName: 'tipe';
+    pluralName: 'tipes';
+    displayName: 'program';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    villages_id: Attribute.String;
-    district_id: Attribute.String;
-    name: Attribute.String;
+    tipeprogram: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::village.village',
-      'oneToOne',
-      'admin::user'
-    > &
+    createdBy: Attribute.Relation<'api::tipe.tipe', 'oneToOne', 'admin::user'> &
       Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::village.village',
-      'oneToOne',
-      'admin::user'
-    > &
+    updatedBy: Attribute.Relation<'api::tipe.tipe', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -900,12 +900,12 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::city.city': ApiCityCity;
       'api::client.client': ApiClientClient;
       'api::district.district': ApiDistrictDistrict;
+      'api::postalcode.postalcode': ApiPostalcodePostalcode;
       'api::province.province': ApiProvinceProvince;
-      'api::regency.regency': ApiRegencyRegency;
-      'api::register.register': ApiRegisterRegister;
-      'api::village.village': ApiVillageVillage;
+      'api::tipe.tipe': ApiTipeTipe;
     }
   }
 }
